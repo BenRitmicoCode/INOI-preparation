@@ -1,0 +1,29 @@
+#include <iostream>
+#include <cmath>
+using namespace std;
+
+int main() {
+    int n;
+    cin>> n;
+    int p1,p2,diff,player;
+    int sum_p1=0;
+    int sum_p2=0;
+    int maxi=0;
+for(int i = 0;i<n;i++){
+    cin>>p1>>p2;
+    sum_p1 += p1;
+    sum_p2 += p2;
+    diff = abs(sum_p2-sum_p1);
+    if(diff>maxi){
+        maxi = diff;
+        if(sum_p2>=sum_p1){
+            player = 2;
+        }else{
+            player = 1;
+        }
+    }
+    if(i==n-1){
+        std::cout << player << " " << maxi;
+    }
+}
+}
