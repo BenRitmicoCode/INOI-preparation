@@ -1,0 +1,47 @@
+#include <iostream>
+#include <vector>
+using namespace std;
+
+int main() {
+    int n,h;
+	std::cin>>n>>h;
+	vector<int> v1,v2;
+	for(int i =0;i<n;i++){
+	    int j;
+	    std::cin>>j;
+	    v1.push_back(j);
+	}
+	int store;
+	do{
+	    
+	    std::cin>>store;
+	    v2.push_back(store);
+	   
+	} while(store>0);
+	
+	int point=0;
+	int hold=false;
+	for(int x=0;x<v2.size();x++){
+	    int store = v2[x];
+	    if(store == 3 && hold!=true && v1[point]>0){
+	         v1[point]--;
+	         hold=true;
+	    }
+	    if(store == 2 && point<n){
+	            point++;
+	    }
+	    if(store == 1 && point>0){
+	        point--;
+	    }
+	    if(store==4 && hold==true && v1[point]<h){
+	            hold=false;
+	            v1[point]++;
+	    }
+	    if(store == 0){
+	        break;
+	    }
+	}
+	for(int l=0;l<v1.size();l++){
+	    std::cout<<v1[l]<<" ";
+	}
+}
