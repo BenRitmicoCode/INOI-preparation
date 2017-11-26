@@ -20,21 +20,21 @@ int main() {
 	} while(store>0);
 	
 	int point=0;
-	int hold=false;
+	int hold=0;
 	for(int x=0;x<v2.size();x++){
 	    int store = v2[x];
-	    if(store == 3 && hold!=true && v1[point]>0){
+	    if(store == 3 && hold==0 && v1[point]>0){
 	         v1[point]--;
-	         hold=true;
+	         hold=1;
 	    }
-	    if(store == 2 && point<n){
+	    if(store == 2 && point<n-1){
 	            point++;
 	    }
 	    if(store == 1 && point>0){
 	        point--;
 	    }
-	    if(store==4 && hold==true && v1[point]<h){
-	            hold=false;
+	    if(store==4 && hold==1 && v1[point]<h){
+	            hold=0;
 	            v1[point]++;
 	    }
 	    if(store == 0){
