@@ -1,0 +1,43 @@
+#include <iostream>
+#include <vector>
+using namespace std;
+
+int main() {
+    int length;
+    std::cin>>length;
+    vector<int> v1;
+    for(int i=0;i<length;i++){
+        int x;
+        std::cin>>x;
+        v1.push_back(x);
+    }
+    int open=0,store=0,maxseq=0,storetwo=0,depth=0,depthstart=0,maxseqstart =0,start=0;
+    int count=0,maxstart=0,hold=0;
+    for(int j=0;j<v1.size();j++){
+        if(v1[j]==1){
+            open++;
+            count++;
+            start++;
+            if(start>maxstart){
+                maxstart=start;
+                hold=j+1;
+            }
+            
+        }
+        if(v1[j]==2){
+            open--;
+            count++;
+            start--;
+            
+        }
+        if(open==0){
+        if(maxseq<count){
+            maxseq=count;
+            maxseqstart=(j+2)-count;
+        }
+            count=0;
+            start=0;
+        }
+    }
+    std::cout<<maxstart<<" "<<hold<<" "<<maxseq<<" "<<maxseqstart;
+}
