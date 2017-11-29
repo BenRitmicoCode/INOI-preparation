@@ -1,0 +1,29 @@
+#include <iostream>
+#include <vector> 
+#include <algorithm>
+using namespace std;
+
+int main() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+    int m;
+	cin>>m;
+	vector<int> v1;
+	vector<int> v2;
+	for(int i=0;i<m;i++){
+	    int x;
+	    int y;
+	    cin>>x>>y;
+	    int tempstore = min(x,y);
+	    v1.push_back(tempstore);
+	}
+    sort(v1.begin(),v1.end());
+    int k=1;
+	for(int j=0;j<v1.size();j++){
+	    if(k<=v1[j]){
+	        v2.push_back(k);
+	        k++;
+	    }
+	}
+	std::cout<<v2.size();
+}
