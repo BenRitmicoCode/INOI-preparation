@@ -1,0 +1,24 @@
+#include <iostream>
+#include <vector>
+#include <algorithm>
+using namespace std;
+
+int main() {
+  ios_base::sync_with_stdio(false);
+	cin.tie(NULL);
+	int n,k;
+	cin>>n>>k;
+	vector<int> v1;
+	for(int i=0;i<n;i++){
+	    int x;
+	    cin>>x;
+	    v1.push_back(x);
+	}
+	sort(v1.begin(),v1.end());
+	int b=0;
+	for(int j=0;j<v1.size();j++){
+	    int lb=lower_bound(v1.begin(),v1.end(),v1[j]+k)-v1.begin();
+	    b+=(n-lb);
+	}
+	std::cout<<b;
+}
