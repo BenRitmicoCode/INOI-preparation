@@ -1,0 +1,24 @@
+#include <iostream>
+#include <vector>
+#include <algorithm>
+using namespace std;
+
+int main() {
+    int n;
+    std::cin>>n;
+    vector<pair<int,int>> v1;
+    int x,y,z;
+    int tempstore = 0;
+    for(int i =0 ;i <n;i++){
+        std::cin>>x>>y>>z;
+        v1.push_back(make_pair(y+z,x));
+        tempstore+=x;
+    }
+    sort(v1.begin(),v1.end());
+    int storemax = 0;
+    for(int j=0;j<v1.size();j++){
+        storemax = max(storemax,tempstore+v1[j].first);
+        tempstore -=v1[j].second;
+    }
+    std::cout<<storemax;
+}
