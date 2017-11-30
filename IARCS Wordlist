@@ -1,0 +1,41 @@
+#include <iostream>
+#include <vector>
+#include <algorithm>
+#include <string>
+using namespace std;
+
+int main() {
+    int n;
+    cin>>n;
+    string st;
+    getline(cin,st);
+    vector<string> v1;
+    for(int i =0 ;i<n;i++){
+        string temp = st;
+        getline(cin,st);
+        st = st+ temp;
+        
+    }
+    string tempstore;
+    for(int j =0 ;j<st.size();j++){
+        if(isupper(st[j])){
+            st[j] = tolower(st[j]);
+        }
+        if(ispunct(st[j])||isspace(st[j])){
+            st[j] = '\0';
+            if(st[j-1]!='\0'){
+                v1.push_back(tempstore);
+            }
+            tempstore='\0';
+        }
+        tempstore+=st[j];
+        
+    }
+    sort(v1.begin(),v1.end());
+    for(int k=0;k<v1.size();k++){
+        if(v1[k]==v1[k-1]){
+            v1.erase(v1.begin()+k);
+        }
+        std::cout<<v1[k]<<endl;
+    }
+}
