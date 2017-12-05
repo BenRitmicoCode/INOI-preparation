@@ -1,0 +1,52 @@
+#include <cmath>
+#include <iostream>
+#include <climits>
+#include <vector>
+using namespace std;
+
+int main() {
+    int n;
+	std::cin>>n;
+	vector<int> v1;
+	int v2[n];
+	int v3[n];
+	for(int i =0;i<n;i++){
+	    int x;
+	    cin>>x;
+	    v1.push_back(x);
+	}
+	//has to include n-1
+	for(int k=0;k<n;k++){
+	    if(k==0||k==1){
+	        int q = v1[k]+v1[n-1];
+	        v3[k] = q;
+	    }else{
+	        int q = min(v3[k-1]+v1[k],v3[k-2]+v1[k]);
+	        v3[k]=q; 
+	    }
+	}
+	//has to include 0
+	for(int j=0;j<n;j++){
+	    if(j==0){
+	        v2[j] =v1[j];
+	        //std::cout<<v2[j]<<endl;
+	        
+	    }
+	    else if(j==1){
+	        int q = v1[j]+v1[j-1];
+	        v2[j]=q;
+	        //std::cout<<v2[j]<<endl;
+	        
+	    }/*else if(j==2){
+	        int q = v1[j]+v2[j-2];
+	        v2[j]=q;
+	    }*/else{
+	        int q = min(v2[j-1]+v1[j],v2[j-2]+v1[j]);
+	        v2[j]=q;
+	        //std::cout<<v2[j]<<endl;
+	    }
+	}
+	int storemin = min(min(v2[n-2],v2[n-1]),min(v3[n-2],v3[n-3]));
+
+	std::cout<<storemin;
+}
