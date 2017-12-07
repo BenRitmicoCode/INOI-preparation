@@ -1,0 +1,35 @@
+#include <iostream>
+#include <string>
+#include <vector> 
+using namespace std;
+int calc(string c,int a,int b, int v1[10000][10000]){
+    //std::cout<<a<<endl;
+    if(v1[a][b]!=0){
+        //std::cout<<v1[a][b]<<endl;
+        return v1[a][b];
+    }
+    else if(b==a||b<a){
+        v1[a][b]==0;
+        //std::cout<<a<<endl;
+        return 0;
+    }
+    else if(c[a]==c[b]){
+        int q= calc(c,a+1,b-1,v1);
+        v1[a][b]=q;
+        //std::cout<<q<<endl;
+        return q;
+    }else if(c[a]!=c[b]){
+        int q = min(calc(c,a,b-1,v1)+1,calc(c,a+1,b,v1)+1);
+        v1[a][b]=q;
+        //std::cout<<q<<endl;
+        return q;
+        
+    }
+}
+int main() {
+	string c;
+	cin>>c;
+	int array[10000][10000];
+	int ans = calc(c,0,c.length()-1,array);
+	std::cout<<ans;
+}
