@@ -1,0 +1,45 @@
+#include <map>
+#include <set>
+#include <list>
+#include <cmath>
+#include <ctime>
+#include <deque>
+#include <queue>
+#include <stack>
+#include <string>
+#include <bitset>
+#include <cstdio>
+#include <limits>
+#include <vector>
+#include <climits>
+#include <cstring>
+#include <cstdlib>
+#include <fstream>
+#include <numeric>
+#include <sstream>
+#include <iostream>
+#include <algorithm>
+#include <unordered_map>
+
+using namespace std;
+int main() {
+    int n;
+    std::cin>>n;
+    int arr[n];
+    for(int i=0;i<n;i++){
+        int x;
+        std::cin>>x;
+        arr[i]=x;
+    }
+    int arr2[n];
+    int arr3[n];
+    arr2[0] = 0;
+    arr3[0]=0;
+    for(int i=1;i<n;i++){
+        arr2[i] = arr3[i-1]+abs(arr[i-1]-1);//10+9
+        arr3[i] = arr2[i-1]+abs(1-arr[i]);
+        
+    }
+
+    std::cout<<max(arr2[n-1],arr3[n-1])<<endl;
+}
