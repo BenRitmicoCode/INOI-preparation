@@ -1,0 +1,83 @@
+#include <iostream>
+#include <vector>
+#include <queue>
+#include <algorithm>
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(NULL);
+    int n,k;
+    int p;
+    cin>>n>>k;
+    int arr2[n+10][310];
+    vector<int> arr[n];
+    for(int i=0;i<n;i++){
+       cin>>p;
+       for(int j=0;j<p;j++){
+           int x;
+           std::cin>>x;
+           arr[i].push_back(x);
+           //std::cout<<arr[0][j]<<endl;
+       }
+    }
+    int president[310];
+    for(int i=0;i<arr[0].size();i++){
+        president[i] = arr[0][i];
+        //std::cout<<president[i]<<endl;
+    }
+    int countwithin = 0;
+    std::queue< vector< int > > q1;
+    vector< vector< int > > v2;
+    int ans = 0;
+    for(int i=1;i<sizeof(arr)/sizeof(arr[0]);i++){
+        
+        sort(arr[i].begin(),arr[i].end());
+        for(int j=0;j<arr[0].size();j++){
+            int digit = president[j];
+            if(binary_search(arr[i].begin(),arr[i].end(),digit)){
+                countwithin++;
+            }
+            if(countwithin==k){
+                q1.push(arr[i]);
+                countwithin =0;
+                //std::cout<<i<<endl;
+                ans++;
+                break;
+                
+            }else if(j==arr[0].size()-1 ){
+                v2.push_back(arr[i]);
+               // std::cout<<i<<endl;
+                countwithin = 0;
+            }
+        }
+    }
+    bool visited[v2.size()+10] = {false};
+    while(!q1.empty()){
+        vector<int> tempvec = q1.front();
+        q1.pop();
+        
+        for(int i=0;i<v2.size();i++){
+            if(visited[i] == true){
+                continue;
+            }
+            
+            int count =0;
+            for(int j=0;j<tempvec.size();j++){
+                int digit = tempvec[j];
+                
+                if(binary_search(v2[i].begin(),v2[i].end(),digit)){
+                    count++;
+                }
+                
+                if(count==k){
+                    q1.push(v2[i]);
+                    visited[i] = true;
+                    ans++;
+                    break;
+                }
+            }
+        }
+    }
+   std::cout<<ans+1;
+}
