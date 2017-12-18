@@ -1,0 +1,64 @@
+#include <iostream>
+#include <vector>
+#include <climits>
+#include <queue>
+using namespace std;
+
+int main() {
+	int n;
+	cin>>n;
+	string cities[n+10];
+	vector< pair< int,int> > arr2[n+10];
+	for(int i=1;i<=n;i++){
+	    cin>>cities[i];
+	    int num;
+	    cin>>num;
+	    for(int j=1;j<=num;j++){
+	        int a,b;
+	        cin>>a>>b;
+	        arr2[i].push_back(make_pair(a,b));
+	        //std::cout<<arr2[i].size()<<endl;
+	    }
+	}
+	int mindistance[n];
+	string start,end;
+	cin>>start>>end;
+	queue<int> q1;
+	for(int i=1;i<=n;i++){
+	    mindistance[i] = INT_MAX;
+	    if(cities[i]==start){
+	        q1.push(i);
+	        mindistance[i] = 0;
+	    }
+	}
+	int posend=0;
+	for(int i=1;i<=n;i++){
+	   if(cities[i]!=start){
+	        q1.push(i);
+	    }
+	    if(cities[i]==end){
+	        posend = i;
+	    }
+	    
+	}
+	bool visited[n+10] = {false};
+	while(!q1.empty()){
+	    int pos = q1.front();
+	    q1.pop();
+	    visited[pos]=true;
+	    for(int i=0;i<arr2[pos].size();i++){
+	        
+	        if(visited[arr2[pos][i].first]==false){
+	            int to =arr2[pos][i].first;
+	            //std::cout<<i<<endl;
+	            int cost = arr2[pos][i].second;
+	            
+	            if(cost<mindistance[to]){
+	                mindistance[to] = cost+mindistance[pos];
+	                
+	            }
+	        }
+	    }
+	}
+	std::cout<<mindistance[posend]<<endl;
+}
