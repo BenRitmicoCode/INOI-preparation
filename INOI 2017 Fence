@@ -1,0 +1,74 @@
+#include <algorithm>
+#include <iostream>
+#include <vector>
+#include <queue>
+#include <set>
+using namespace std;
+std::set< pair< int,int > > first;
+std::queue< pair<int,int> > q1;
+int checkval(vector< pair< int,int > > v,pair<int,int> p1){
+    int count =4;
+    int x = p1.first;
+    int y = p1.second;
+    if(binary_search(v.begin(),v.end(),make_pair(x+1,y))){
+        //std::cout<<x+1<<" "<<y<<endl;
+        count--;
+        q1.push(make_pair(x+1,y));
+    }
+    if(binary_search(v.begin(),v.end(),make_pair(x-1,y))){
+        //std::cout<<x-1<<" "<<y<<endl;
+        count--;
+        q1.push(make_pair(x-1,y));
+    }
+    if(binary_search(v.begin(),v.end(),make_pair(x,y+1))){
+        //std::cout<<x<<" "<<y+1<<endl;
+        count--;
+        q1.push(make_pair(x,y+1));
+    }
+    if(binary_search(v.begin(),v.end(),make_pair(x,y-1))){
+        //std::cout<<x<<" "<<y-1<<endl;
+        count--;
+        q1.push(make_pair(x,y-1));
+    }
+    return count;
+    
+}
+int calc(vector< pair< int,int > > v){
+    int count = 0;
+    while(!q1.empty()){
+        pair< int, int > p1= q1.front();
+        q1.pop();
+        if(first.find(make_pair(p1.first,p1.second))==first.end()){
+            first.insert(make_pair(p1.first,p1.second));
+            count+=checkval(v,p1);
+            
+            if(q1.empty()){
+                return count;
+            }
+        }
+        
+    }
+}
+
+int main(){
+    
+    int r,c,n;
+	cin>>r>>c>>n;
+    vector< pair< int,int > > v1;
+	for(int i=0;i<n;i++){
+	    int x,y;
+	    cin>>x>>y;
+	    v1.push_back(make_pair(x,y));
+	}
+	int storemax = 0;
+	sort(v1.begin(),v1.end());
+	for(int i=0;i<v1.size();i++){
+	    if(first.find(make_pair(v1[i].first,v1[i].second))==first.end()){
+	        q1.push(v1[i]);
+	        storemax = max(storemax,calc(v1));
+	        
+	    }
+
+	}
+	std::cout<<storemax<<endl;
+}
