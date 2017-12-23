@@ -1,0 +1,32 @@
+#include <cmath>
+#include <iostream>
+using namespace std;
+int v[750];
+int b[750];
+	int dp[750][750];
+	int n;
+int main() {
+	int k;
+	cin>>n>>k;
+	for(int i=0;i<n;i++){
+	    cin>>v[i];
+	}
+	for(int i=0;i<n;i++){
+	    cin>>b[i];
+	}
+	for(int i=1;i<n;i++){
+	    for(int j=0;j<n-i;j++){
+	        int e =j+i;
+	        if(e>j){
+	        
+	        if(b[j]+k ==b[e]){
+	            dp[j][e] = max(dp[j][e],v[j]+v[e]+dp[j+1][e-1]);
+	        }
+	        for(int l=1;l<=i;l++){
+	            dp[j][e] = max(dp[j][e],dp[e-l+1][e]+dp[j][e-l]);
+	        }       
+	    }
+	    }
+	}
+	std::cout<<dp[0][n-1];
+}
