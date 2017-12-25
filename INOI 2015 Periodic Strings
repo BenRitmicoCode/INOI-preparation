@@ -1,0 +1,42 @@
+#include <iostream>
+#include <cmath>
+#include <set>
+using namespace std;
+int ans[150100];
+int m;
+int powers[150100];
+std::set<int> s1;
+void checkfactors(int n){
+    s1.clear();
+    s1.insert(1);
+    for(int i=2;i*i <= n;i++){
+        if(n%i == 0){
+            s1.insert(i);
+            s1.insert(n/i);
+            //std::cout<<i<<endl;
+        }
+    }
+}
+void computepowers(int n){
+    powers[0] = 1;
+    for(int i=1;i<=n;i++){
+        powers[i] = (powers[i-1]*2)%m;
+    }
+}
+int main() {
+	int n;
+	cin>>n>>m;
+	computepowers(n);
+	ans[1] = 2;
+	ans[2] = 2;
+	set<int>::iterator j;
+	for(int i=3;i<=n;i++){
+	    checkfactors(i);
+	    ans[i] = powers[i];
+	    for( auto &elem:s1){
+	        ans[i] -= ans[elem];
+	        ans[i] = (ans[i]+m)%m;
+	    }
+	}
+	std::cout<<ans[n]<<endl;
+}
