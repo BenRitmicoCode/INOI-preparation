@@ -7,15 +7,11 @@ using namespace std;
 int main() {
     int c,f;
     cin>>c>>f;
-    int arr[c+10][c+10];
-    int arr2[c+10][c+10];
+    int arr[c][c];
+    int arr2[c][c];
     for(int i=0;i<c;i++){
         for(int j=0;j<c;j++){
-            if(i==j){
-                arr[i][j] = 0;
-            }else{
-                arr[i][j] = 10100;
-            }
+            arr[i][j] = -1;
         }
     }
     
@@ -27,13 +23,25 @@ int main() {
     }
     for(int i=0;i<c;i++){
         for(int j=0;j<c;j++){
-            arr2[i][j] = arr[i][j];
+            if(i==j){
+                arr2[i][j] = 0;
+            }else{
+                arr2[i][j] = 1001000;
+            }
+            
         }
     }
     for(int i=0;i<c;i++){
         for(int j=0;j<c;j++){
-            for(int k=0;k<c;k++){
-                if(arr2[i][j]>arr2[i][k]+arr2[k][j]){
+            if(arr[i][j]!=-1){
+                arr2[i][j] = arr[i][j];
+            }
+        }
+    }
+    for(int k=0;k<c;k++){
+        for(int i=0;i<c;i++){
+            for(int j=0;j<c;j++){
+                if(arr2[i][j]>(arr2[i][k]+arr2[k][j])){
                     arr2[i][j]=arr2[i][k]+arr2[k][j];
                     //std::cout<<arr2[i][j]<<endl;
                 }
