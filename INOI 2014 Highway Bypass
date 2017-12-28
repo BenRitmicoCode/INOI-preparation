@@ -1,0 +1,57 @@
+#include <iostream>
+using namespace std;
+ 
+int main() {
+	int r,c,d;
+	cin>>r>>c>>d;
+	int arr[300][300];
+	int arr2[300][300][600];
+	if(d>=300){
+	    d=299;
+	}
+	for(int i=1;i<=r;i++){
+	    for(int j=1;j<=c;j++){
+	        cin>>arr[i][j];
+	    }
+	}
+	for(int i=0;i<=r;i++){
+	    for(int j=0;j<=c;j++){
+	        for(int k=0;k<=d;k++){
+	            arr2[i][j][k] = 0;
+	            arr2[i][j][k+300] = 0;
+	        }
+	    }
+	}
+	arr2[1][1][0] = 1;
+	arr2[1][1][300] = 1;
+	for(int i=1;i<=r;i++){
+	    for(int j=1;j<=c;j++){
+	        for(int k=0;k<=d;k++){
+	            if(arr[i][j]!= 0){
+	                if(i!=1){
+	                    arr2[i][j][1] = (arr2[i][j][1] + arr2[i-1][j][k + 300])%20011;
+	                }
+	                if(j!=1){
+	                    arr2[i][j][301] = (arr2[i][j][301] + arr2[i][j-1][k])%20011;
+	                }
+	                if(k<d && k>0){
+	                    if(i!=1){
+	                        arr2[i][j][k+1] = (arr2[i][j][k+1]+ arr2[i-1][j][k])%20011;
+	                    }
+	                    if(j!=1){
+	                        arr2[i][j][301+k] = (arr2[i][j][301+k]+ arr2[i][j-1][300+k])%20011;
+	                    }
+	                }
+	                
+	            }
+	        }
+	    }
+	}
+	int ans = 0;
+	
+	for (int k = 0; k<=d; k++){
+		ans = (ans + arr2[r][c][k] + arr2[r][c][k+300])%20011;
+	}
+	std::cout<<ans;
+}
+ 
