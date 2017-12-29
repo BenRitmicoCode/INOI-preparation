@@ -1,0 +1,55 @@
+#include <iostream>
+#include <queue>
+#include <climits>
+#include <vector>
+using namespace std;
+
+int main() {
+	int n;
+	cin>>n;
+	vector<int> arr[100000];
+	int distance[100000]={10000000};
+	bool visited[100000]={false};
+	int w[100][100];
+	std::priority_queue< pair< int,int> > q1;
+	
+	for(int i=0;i<n;i++){
+	    int a,b,c;
+	    cin>>a>>b>>c;
+	    arr[a].push_back(b);
+        arr[b].push_back(a);
+	    w[a][b] = c;
+	    w[b][a] = c;
+	    
+	    //std::cout<<w[a][b]<<endl;
+	}
+	for(int i=0;i<=n;i++){
+	    distance[i] = INT_MAX;
+	}
+	distance[1] = 0;
+	q1.push(make_pair(0,1));
+	while(!q1.empty()){
+	    int temp = q1.top().second;
+	    //std::cout<<temp<<endl;
+	    //std::cout<<temp<<endl;
+	    q1.pop();
+	    
+	    visited[temp] = true;
+	    for(int i=0;i<arr[temp].size();i++){
+	        
+	        if(visited[arr[temp][i]]==false){
+	            //std::cout<<w[1][4]<<endl;
+	            if(distance[arr[temp][i]]>distance[temp]+w[temp][arr[temp][i]]){
+	                distance[arr[temp][i]] = distance[temp]+w[temp][arr[temp][i]];
+	                //std::cout<<arr[temp][i]<<":"<<distance[distance[arr[temp][i]]]<<endl;
+	                q1.push(make_pair((distance[arr[temp][i]])*-1,arr[temp][i]));
+	            }
+	        }  
+	    }
+	}
+	for(int i=1;i<=n;i++){
+	    std::cout<<distance[i]<<endl;
+	}
+	
+	
+}
