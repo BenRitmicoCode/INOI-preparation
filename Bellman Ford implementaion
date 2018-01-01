@@ -1,0 +1,45 @@
+#include <iostream>
+#include <vector>
+#include <climits>
+using namespace std;
+
+int main() {
+	int e,v,src;
+	cin>>e>>v>>src;
+	vector<int> source;
+	vector<int> destination;
+	vector<int> weight;
+	int distance[v+1];
+	for(int i=0;i<e;i++){
+	    int a,b,w;
+	    cin>>a>>b>>w;
+	    source.push_back(a);
+	    destination.push_back(b);
+	    weight.push_back(w);
+	}
+	for(int i=0;i<=v;i++){
+	    distance[i] = INT_MAX;
+	}
+	distance[src] = 0;
+	for(int i=1;i<v-1;i++){
+	    
+	    for(int j=0;j<e;j++){
+	        int w = weight[j];
+	        int to =destination[j];
+	        int from = source[j];
+	        //std::cout<<to<<endl;
+	        if(distance[to]>distance[from]+weight[j] && distance[from]!= INT_MAX){
+	            distance[to]=distance[from]+weight[j];
+	            //std::cout<<to<<endl;
+	        }
+	    }
+	}
+	    for(int j=0;j<e;j++){
+	        int w = weight[j];
+	        int to =destination[j];
+	        int from = source[j];
+	       if(distance[to]>distance[from]+weight[j] && distance[from]!= INT_MAX){
+	            std::cout<<"negative Cycle exists from"<<endl;
+	        }
+	    }
+}
