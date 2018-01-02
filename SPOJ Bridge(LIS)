@@ -1,0 +1,48 @@
+#include <iostream>
+#include <vector>
+#include <algorithm>
+using namespace std;
+
+int main() {
+	int testcases;
+	cin>>testcases;
+	while(testcases--){
+	    int n;
+	    cin>>n;
+	    vector< pair< int,int > > v1;
+	    int ans[n+1];
+	    int arr1[n+1];
+	    int arr2[n+1];
+	    for(int i=0;i<n;i++){
+	        cin>>arr1[i];
+	    }
+	    for(int i=0;i<n;i++){
+	        cin>>arr2[i];
+	    }
+	    for(int i=0;i<n;i++){
+	        v1.push_back(make_pair(arr1[i],arr2[i]));
+	        //std::cout<<v1[i].first<<" "<<v1[i].second<<endl;
+	    }
+	    sort(v1.begin(),v1.end());
+	    for(int i=0;i<=n;i++){
+	        ans[i] =1;
+	    }
+	    
+	    for(int i=1;i<n;i++){
+	        
+	        for(int j=0;j<i;j++){
+	            
+	            if(v1[j].second<=v1[i].second && ans[i]<ans[j]+1){
+	                ans[i] = ans[j]+1;
+	                //std::cout<<ans[i]<<endl;
+	            }
+	        }
+	    }
+	    int storemax = 0;
+	    for(int i=0;i<n;i++){
+	        storemax = max(storemax,ans[i]);
+	        
+	    }
+	    std::cout<<storemax<<endl;
+	}
+}
