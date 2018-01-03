@@ -1,19 +1,39 @@
 #include <iostream>
+#include <string>
+#include <algorithm>
+#include <map>
 using namespace std;
 
 int main() {
-    string arr2[n];
-    string arr[m];
-    int lcs[n][m];
-	for(int i=0;i<n;i++){
-	    for(j=0;j<m;j++){
+	string a,b;
+	cin>>a>>b;
+	int lcs[a.length()+1][b.length()+1];
+	for(int i=0;i<=a.length();i++){
+	    for(int j=0;j<=b.length();j++){
 	        if(i==0||j==0){
 	            lcs[i][j] = 0;
-	        }else if(arr2[i]==arr[j]){
+	        }
+	        else if(a[i-1]==b[j-1]){
 	            lcs[i][j] = 1+ lcs[i-1][j-1];
 	        }else{
 	            lcs[i][j] = max(lcs[i][j-1],lcs[i-1][j]);
 	        }
 	    }
 	}
+	string storelcs;
+	int i = a.length();
+	int j= b.length();
+	while(i>0 && j>0){
+	    if(a[i-1] == b[j-1]){
+	        storelcs+= b[j-1];
+	        i--;
+	        j--;
+	    }else if(lcs[i-1][j]>lcs[i][j-1]){
+	        i--;
+	    }else{
+	        j--;
+	    }
+	}
+	reverse(storelcs.begin(),storelcs.end());
+	std::cout<<storelcs<<endl;
 }
