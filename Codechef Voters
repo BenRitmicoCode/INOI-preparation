@@ -1,89 +1,25 @@
 #include <iostream>
-#include <vector>
-#include <cmath>
+#include <set>
 using namespace std;
 
-//function for min
-
-int smallest(int g, int h, int j){
-        return std::min(std::min(g,h), j);
-    }
 int main() {
-    
-    int first,second,third;
-    
-    //array sizes
-    
-	std::cin>>first>>second>>third;
-	//std::cout << first << " " << second << " " << third;
-	vector<int> v1,v2,v3;
-	
-	//set up arrays
-	
-	for(int i=0;i<first;i++){
+	int a,b,c;
+	cin>>a>>b>>c;
+	a+=b;
+	a+=c;
+	set<int> arr;
+	set<int> arr2;
+	for(int i=0;i<a;i++){
 	    int x;
-	    std::cin>>x;
-	    v1.push_back(x);
+	    cin>>x;
+	    if(arr.count(x) == 1){
+	        arr2.insert(x);
+	    }
+	    arr.insert(x);
 	}
-	for(int j=0;j<second;j++){
-	    int y;
-	    std::cin>>y;
-	    v2.push_back(y);
-	}
-	for(int k=0;k<third;k++){
-	    int z;
-	    std::cin>>z;
-	    v3.push_back(z);
-	}
-	
-	
-	int a =0;
-	int b =0;
-	int c= 0;
-	vector<int> v4;
-	int storea,storeb,storec;
-	while(a < first || b < second || c < third){
-	    if(a<first){
-	        storea = v1[a];
-	        
-	    }else{
-	        storea = max(storeb,storec) + 20;
-	    }
-	    if(b<second){
-	        storeb = v2[b];
-	       
-	    }else{
-	        storeb = max(storea,storec) + 20;
-	    }
-	    if(c<third){
-	        storec = v3[c];
-	        
-	    }else{
-	        storec = max(storea,storeb) + 20;
-	    }
-	    int storemin = smallest(storea,storeb,storec);
-	    if(storea == storeb && storemin == storeb){
-	        v4.push_back(storea);
-	    }
-	    else if(storec == storeb && storemin == storeb){
-	        v4.push_back(storec);
-	    }
-	    else if(storea == storec && storemin == storea){
-	        v4.push_back(storea);
-	    }
-	    if(storemin == storea){
-	        a++;
-	    }
-	    if(storemin == storeb){
-	        b++;
-	    }
-	    if(storemin == storec){
-	        c++;
-	    }
-	    
-}
-    std::cout << v4.size() << endl;
-	for(int e =0;e<v4.size();e++){
-	    std::cout<< v4[e] << endl;
+	std::cout<<arr2.size()<<endl;
+	set<int>::iterator i;
+	for(i=arr2.begin();i!=arr2.end();i++){
+	    std::cout<<*i<<endl;
 	}
 }
